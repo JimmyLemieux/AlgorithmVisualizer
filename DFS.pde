@@ -3,12 +3,14 @@ import java.util.*;
 class DFS extends Thread {
   Tile grid[][];
   Tile genesis;
-
   int visited[][];
+  GraphHelper gh;
 
   public DFS(Tile genesis, Tile grid[][]) {
     this.grid = grid;
     this.genesis = genesis;
+    
+    this.gh = new GraphHelper(this.grid);
 
     this.visited = new int[grid.length][grid.length];
     for (int i = 0; i<grid.length; i++) {
@@ -18,59 +20,29 @@ class DFS extends Thread {
     }
   }
 
-  public PVector[] getNeighbours(Tile nTile) {
-    // Neighbours are above, down, left, right
-    PVector[] adj = new PVector[4];
-    int index = 0;
-    PVector gridPos = nTile.gridPos();
-    int x = (int)gridPos.x;
-    int y = (int)gridPos.y;
+public void traverse(Tile nTile) {
 
-    if (y - 1 >= 0 && index != 4) {
-      adj[index] = new PVector(x, y-1);   
-      index++;
-    }  
+  PVector gridPos = nTile.gridPos();
+  int x = (int)gridPos.x;
+  int y = (int)gridPos.y;
+  visited[x][y] = 1;
+  nTile.tileSetVisited();
+  delay(50);
 
-    if (y + 1 < this.grid[0].length && index != 4) {
-      adj[index] = new PVector(x, y+1);
-      index++;
-    }  
-
-    if (x + 1 < this.grid[0].length && index != 4) {
-      adj[index] = new PVector(x+1, y);
-      index++;
-    } 
-    if (x - 1 >= 0 && index != 4) {
-      adj[index] = new PVector(x-1, y);
-      index++;
-    }
-
-    return adj;
-  }
-
-  public void traverse(Tile nTile) {
-
-    PVector gridPos = nTile.gridPos();
-    int x = (int)gridPos.x;
-    int y = (int)gridPos.y;
-    visited[x][y] = 1;
-    nTile.tileSetVisited();
-    delay(50);
-
-    PVector[] adj = getNeighbours(nTile);
-    for (int i = 0; i<adj.length; i++) {
-      if (adj[i] != null) {
-        PVector adjPos = adj[i];
-        int aX = (int)adjPos.x;
-        int aY = (int)adjPos.y;
-        if (visited[aX][aY] == 0 && grid[aX][aY] != null) {
-          traverse(grid[aX][aY]);
-        }
+  PVector[] adj = this.gh.getNeighbours(nTile);
+  for (int i = 0; i<adj.length; i++) {
+    if (adj[i] != null) {
+      PVector adjPos = adj[i];
+      int aX = (int)adjPos.x;
+      int aY = (int)adjPos.y;
+      if (visited[aX][aY] == 0 && grid[aX][aY] != null) {
+        traverse(grid[aX][aY]);
       }
     }
   }
+}
 
-  public void run() {
-    traverse(genesis);
-  }
+public void run() {
+  traverse(genesis);
+}
 }

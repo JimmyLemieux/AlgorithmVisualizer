@@ -18,6 +18,10 @@ class Tile {
     this.isVisited = true;
   }
 
+  void tileSetOffVisited() {
+    this.isVisited = false;
+  }
+
   void display() {
     if (isVisited) {
       fill(0);      

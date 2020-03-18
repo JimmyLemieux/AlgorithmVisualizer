@@ -7,6 +7,7 @@ int c = 0;
 boolean start = false;
 
 DFS d;
+BFS b;
 void setup() {
   size(600, 600);
   background(255);
@@ -29,8 +30,9 @@ void setup() {
 
   genesisBlock = grid[rRow][rCol]; 
   d = new DFS(genesisBlock, grid);
+  b = new BFS(genesisBlock, grid);
+  b.start();
 
-  d.start();
 }
 
 void redoDraw() {
@@ -39,6 +41,14 @@ void redoDraw() {
       grid[i][j].display();
     }
   }
+}
+
+void resetGrid() {
+   for (int i = 0;i<grid.length;i++) {
+      for (int j =0;j<grid.length;j++) {
+         grid[i][j].tileSetOffVisited();
+      }
+   }
 }
 
 void draw() {
@@ -50,5 +60,7 @@ void draw() {
 }
 
 void mousePressed() {
-  this.redraw();
+  
+  resetGrid();
+  
 }
