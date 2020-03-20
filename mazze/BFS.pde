@@ -54,7 +54,7 @@ class BFS extends Thread {
           if (visited[aX][aY] != 1) {
             visited[aX][aY ] = 1;
             grid[aX][aY].tileSetVisited();
-            delay(20);
+            delay(1);
             q.add(grid[aX][aY]);
           }
         }

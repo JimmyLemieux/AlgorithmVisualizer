@@ -5,6 +5,16 @@ class GraphHelper {
     this.grid = grid;
   }
 
+  public GraphHelper() {
+  }
+
+  public Tile generateGenesisBlock(int rows, int cols) {
+    int rRow, rCol;
+    rRow = (int)random(0, rows);
+    rCol = (int) random(0, cols);
+    return this.grid[rRow][rCol];
+  }
+
   public PVector[] getNeighbours(Tile nTile) {
     // Neighbours are above, down, left, right
     PVector[] adj = new PVector[4];
