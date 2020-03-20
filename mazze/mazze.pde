@@ -1,6 +1,7 @@
 Tile grid[][];
 Tile genesisBlock;
 GraphHelper gh;
+BarHelper bh;
 Bar bar;
 Bar bars[];
 DFS d;
@@ -8,7 +9,7 @@ BFS b;
 
 int c = 0;
 boolean start = false;
-int squareSize = 10;
+int squareSize = 20;
 int cols, rows;
 
 void setup() {
@@ -16,8 +17,8 @@ void setup() {
   background(255);
   randomSeed(second());
   frameRate(60);
-  cols = height/squareSize;
-  rows = width/squareSize;
+  cols = width/squareSize;
+  rows = height/squareSize;
   grid = new Tile[rows][cols];
 
   initGrid();
@@ -26,15 +27,19 @@ void setup() {
   //Tile genesisBlock = gh.generateGenesisBlock(rows, cols);
   //d = new DFS(genesisBlock, grid);
   //b = new BFS(genesisBlock, grid);
+
+  bars = new Bar[cols];
   
-  bars = new Bar[rows];
-  
-  for (int i =0;i<rows;i++) {
-    bars[i] = new Bar(i * squareSize,i * squareSize,10,height, i);
+  println(cols);
+
+  for (int i =0; i<cols; i++) {
+    bars[i] = new Bar(i * squareSize, i * squareSize, squareSize, height, (cols - i) - 1);
   }
-    //bar = new Bar(0,height/2,squareSize,height);
-  
-  
+
+  bh = new BarHelper(bars);
+  //bar = new Bar(0,height/2,squareSize,height);
+
+  bh.start();
 }
 
 void initGrid() {
@@ -62,19 +67,25 @@ void resetGrid() {
   }
 }
 
+void printBars(Bar bars[]) {
+  for (int i =0; i<bars.length; i++) {
+    println(bars[i].indexNumber);
+  }
+}
+
 void draw() {
   // redoDraw();
   //bar.drawBar();
-  
-  for (int i = 0;i<rows;i++) {
+
+  this.bars = bh.barState();
+
+  for (int i = 0; i<bars.length; i++) {
     bars[i].drawBar();
   }
-  
-  
-  
 }
 
 void mousePressed() {
 
-  resetGrid();
+  //resetGrid();
+  printBars(bars);
 }

@@ -17,18 +17,7 @@ class Bar {
   }
 
   public void setCurrent() {
-    this.isCurrent = true;
-  }
-
-  public void setNotCurrent() {
-    this.isCurrent = false;
-  }
-  
-  public void testLoop() {
-    
-    
-      
-    
+    this.isCurrent = !this.isCurrent;
   }
 
   public void drawBar() {
