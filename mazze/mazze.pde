@@ -9,12 +9,12 @@ BFS b;
 
 int c = 0;
 boolean start = false;
-int squareSize = 20;
+int squareSize = 2;
 int cols, rows;
 
 void setup() {
   size(600, 600);
-  background(255);
+  background(100);
   randomSeed(second());
   frameRate(60);
   cols = width/squareSize;
@@ -36,9 +36,10 @@ void setup() {
     bars[i] = new Bar(i * squareSize, i * squareSize, squareSize, height, (cols - i) - 1);
   }
 
-  bh = new BarHelper(bars);
+  bh = new BarHelper(bars, this);
   //bar = new Bar(0,height/2,squareSize,height);
-
+  
+  
   bh.start();
 }
 
@@ -56,6 +57,12 @@ void redoDraw() {
       grid[i][j].display();
     }
   }
+}
+
+public void redoDrawBars() {
+   for (int i = 0;i<bars.length;i++) {
+      bars[i].drawBar(); 
+   }
 }
 
 void resetGrid() {
@@ -76,16 +83,15 @@ void printBars(Bar bars[]) {
 void draw() {
   // redoDraw();
   //bar.drawBar();
+  background(100);
+  
+  redoDrawBars();
 
-  this.bars = bh.barState();
-
-  for (int i = 0; i<bars.length; i++) {
-    bars[i].drawBar();
-  }
+ 
 }
 
 void mousePressed() {
 
-  //resetGrid();
+  //resetGrid();  
   printBars(bars);
 }

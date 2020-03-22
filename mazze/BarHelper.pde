@@ -1,33 +1,37 @@
 class BarHelper extends Thread {
 
   Bar bars[];
-  public BarHelper(Bar bars[]) { 
+  mazze m;
+  public BarHelper(Bar bars[], mazze m) { 
     this.bars = bars;
+    this.m = m;
   }
 
   public void test() {
-    while (true) {
-      for (int i =0, k = bars.length - 1; i<bars.length && k>=0; i++, k--) {
-        bars[i].setCurrent();
-        bars[k].setCurrent();
-        testSwap(i, k);
-        delay(500);
-        bars[i].setCurrent();
-        bars[k].setCurrent();
-      }
+    for (int i =0, k = m.bars.length - 1; i<m.bars.length / 2; i++, k--) {
+      m.bars[i].setCurrent();
+      m.bars[k].setCurrent();
+      testSwap(m.bars[i], m.bars[k]);
+
+      delay(50);
+      m.bars[i].setCurrent();
+      m.bars[k].setCurrent();
+      
+
     }
+    m.redraw();
   }
   
+  public void testSwap(Bar a, Bar b) {
+       int temp = a.getX();
+       a.changeXCoor(b.getX());
+       b.changeXCoor(temp);
+  }
+
   public Bar[] barState() {
-     return this.bars;
+    return this.bars;
   }
 
-  public void testSwap(int a, int b) {
-    Bar b1 = bars[a];
-    Bar b2 = bars[b];
-
-    
-  }
 
   public void run() {
     test();

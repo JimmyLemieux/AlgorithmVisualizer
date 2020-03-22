@@ -19,6 +19,14 @@ class Bar {
   public void setCurrent() {
     this.isCurrent = !this.isCurrent;
   }
+  
+  public void changeXCoor(int x) {
+     this.x = x; 
+  }
+  
+  public int getX() {
+     return this.x; 
+  }
 
   public void drawBar() {
     rectMode(CORNER);
