@@ -1,5 +1,6 @@
-all: gitAdd gitCommit gitPush
+push: gitAdd gitCommit gitPush
 
+pull: gitStash gitPull
 
 
 
@@ -11,3 +12,9 @@ gitCommit:
 
 gitPush:
 	git push
+
+gitStash:
+	git stash
+
+gitPull:
+	git pull
