@@ -5,6 +5,7 @@ class Bar {
   public int indexNumber;
 
   boolean isCurrent = false;
+  
 
 
   public Bar(int x, int y, int w, int h, int indexNumber) {
@@ -22,6 +23,10 @@ class Bar {
 
   public void changeXCoor(int x) {
     this.x = x;
+  }
+  
+  public void changeFreq(int x) {
+     this.freq = x; 
   }
 
   public int getX() {

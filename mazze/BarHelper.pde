@@ -13,7 +13,7 @@ class BarHelper extends Thread {
       bars[k].setCurrent();
       swapBars(bars[i], bars[k]);
 
-      delay(10);
+      delay(100);
       bars[i].setCurrent();
       bars[k].setCurrent();
     }
@@ -22,9 +22,17 @@ class BarHelper extends Thread {
 
   public void swapBars(Bar a, Bar b) {
     int temp = a.getX();
+    int tempFreq = a.getFreq();
     a.changeXCoor(b.getX());
     m.sin.freq(a.getFreq() * 2);
+    a.changeFreq(b.freq);
     b.changeXCoor(temp);
+    b.changeFreq(tempFreq);
+  }
+
+  public void sweep() {
+    for (int i =0; i<bars.length; i++) {
+    }
   }
 
   public Bar[] barState() {
