@@ -1,4 +1,4 @@
-git: gitAdd gitCommit gitPush
+all: gitAdd gitCommit gitPush
 
 
 
