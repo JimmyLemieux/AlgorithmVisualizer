@@ -36,7 +36,7 @@ void setup() {
     bars[i] = new Bar(i * squareSize, i * squareSize, squareSize, height, (cols - i) - 1);
   }
 
-  bh = new BarHelper(bars, this);
+  bh = new BarHelper(bars);
   //bar = new Bar(0,height/2,squareSize,height);
   
   
