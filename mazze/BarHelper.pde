@@ -1,8 +1,10 @@
 class BarHelper extends Thread {
 
   Bar bars[];
-  public BarHelper(Bar bars[]) { 
+  mazze m;
+  public BarHelper(Bar bars[], mazze m) { 
     this.bars = bars;
+    this.m = m;
   }
 
   public void test() {
@@ -15,11 +17,13 @@ class BarHelper extends Thread {
       bars[i].setCurrent();
       bars[k].setCurrent();
     }
+    m.sin.stop();
   }
 
   public void swapBars(Bar a, Bar b) {
     int temp = a.getX();
     a.changeXCoor(b.getX());
+    m.sin.freq(a.getFreq() * 2);
     b.changeXCoor(temp);
   }
 

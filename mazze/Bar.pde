@@ -1,8 +1,7 @@
 class Bar {
-
-
-  int x, y, w, h;
-
+    
+  int x, y, w, h, freq;
+  
   public int indexNumber;
 
   boolean isCurrent = false;
@@ -11,6 +10,7 @@ class Bar {
   public Bar(int x, int y, int w, int h, int indexNumber) {
     this.x = x;
     this.y = y;
+    this.freq = y;
     this.w = w;
     this.h = h;
     this.indexNumber = indexNumber;
@@ -19,13 +19,17 @@ class Bar {
   public void setCurrent() {
     this.isCurrent = !this.isCurrent;
   }
-  
+
   public void changeXCoor(int x) {
-     this.x = x; 
+    this.x = x;
+  }
+
+  public int getX() {
+    return this.x;
   }
   
-  public int getX() {
-     return this.x; 
+  public int getFreq() {
+    return this.freq; 
   }
 
   public void drawBar() {

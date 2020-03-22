@@ -1,3 +1,5 @@
+import processing.sound.*;
+
 Tile grid[][];
 Tile genesisBlock;
 GraphHelper gh;
@@ -6,10 +8,11 @@ Bar bar;
 Bar bars[];
 DFS d;
 BFS b;
+SinOsc sin;
 
-int c = 0;
+int c = 200;
 boolean start = false;
-int squareSize = 2;
+int squareSize = 1;
 int cols, rows;
 
 void setup() {
@@ -22,6 +25,8 @@ void setup() {
   grid = new Tile[rows][cols];
 
   initGrid();
+  
+  sin = new SinOsc(this);
 
   //gh = new GraphHelper(grid);
   //Tile genesisBlock = gh.generateGenesisBlock(rows, cols);
@@ -36,10 +41,10 @@ void setup() {
     bars[i] = new Bar(i * squareSize, i * squareSize, squareSize, height, (cols - i) - 1);
   }
 
-  bh = new BarHelper(bars);
+  bh = new BarHelper(bars, this);
   //bar = new Bar(0,height/2,squareSize,height);
   
-  
+  sin.play();
   bh.start();
 }
 
@@ -87,7 +92,6 @@ void draw() {
   
   redoDrawBars();
 
- 
 }
 
 void mousePressed() {
