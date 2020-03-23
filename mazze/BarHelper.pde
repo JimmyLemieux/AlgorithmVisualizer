@@ -23,12 +23,31 @@ class BarHelper extends Thread {
     sweep();
     m.sin.stop();
   }
+  
+  public void testSwap(Bar a, Bar b) {
+     // Just swap first and last elements
+     int tempIndex = a.indexNumber;
+     int tempXCoor = a.getX();
+     int tempFreq = a.getFreq();
+     a.indexNumber = b.indexNumber;
+     b.indexNumber = tempIndex;
+     
+     
+     m.sin.freq(a.getFreq() * 2);
+     a.changeFreq(b.freq);
+     b.changeFreq(tempFreq);
+     a.changeXCoor(b.getX());
+     b.changeXCoor(tempXCoor);
+
+    
+  }
 
   public void shuffleBars() {
       randomSeed(millis());  
       for (int i = bars.length - 1; i>0;i--) {
-         int j = (int)random(i);
-         swapBars(bars[i], bars[j]);
+         int j = (int)random(0,i + 1);
+         println(j);
+         testSwap(bars[i], bars[j]);
       }
   }
   
@@ -37,16 +56,19 @@ class BarHelper extends Thread {
      for (i =0;i<bars.length - 1;i++) {
           min = bars[i].indexNumber;
           bars[i].setCurrent();
+          //println(bars[i].indexNumber);
         for (j =i + 1;j<bars.length;j++) {
             bars[j].setCurrent();
-            if (bars[j].indexNumber < bars[min].indexNumber ) {
+            if (bars[j].indexNumber < min ) {
                bars[j].setCurrent();
                min = bars[j].indexNumber;
             }
             bars[j].setCurrent();
         }
-        delay(2);
-        swapBars(bars[i], bars[min]);
+        delay(50);
+        println(bars[i].indexNumber, min);
+        testSwap(bars[i], bars[min]);
+       
         bars[i].setCurrent();
         //println(min);
      }
@@ -54,7 +76,6 @@ class BarHelper extends Thread {
      
      m.sin.stop();
      
-     println(bars[0].indexNumber);
    
   }
 
@@ -102,6 +123,7 @@ class BarHelper extends Thread {
 
   public void run() {
     //selectionSort();
+    selectionSort();
   }
  
 }

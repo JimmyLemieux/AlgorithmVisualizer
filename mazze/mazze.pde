@@ -13,11 +13,11 @@ SinOsc sin;
 
 int c = 200;
 boolean start = false;
-int squareSize = 1;
+int squareSize = 10;
 int cols, rows;
 
 void setup() {
-  size(1000, 600);
+  size(600, 600);
   background(100);
   randomSeed(second());
   frameRate(60);
@@ -25,9 +25,8 @@ void setup() {
   rows = height/squareSize;
   grid = new Tile[rows][cols];
   
-  
-
-  initGrid();
+ 
+  // initGrid();
   
   sin = new SinOsc(this);
 
@@ -42,16 +41,16 @@ void setup() {
   for (int i =0; i<cols; i++) {
     bars[i] = (new Bar(i * squareSize, i * squareSize, squareSize, height, (cols - i) - 1));
   }
+    
   
-  //Collections.shuffle(bars);
-  
-   
-  delay(1000);  
-
 
   bh = new BarHelper(bars, this);
   
-  bh.shuffleBars();
+  //bh.shuffleBars();
+  
+ // bh.testSwap(bars[0], bars[bars.length - 1]);
+  
+  //bh.testSwap(bars[5], bars[43]);
   
 
   //bar = new Bar(0,height/2,squareSize,height);
@@ -92,11 +91,23 @@ void resetGrid() {
   }
 }
 
+void printBars() {
+  println(bars.length);
+   for (int i =0;i<bars.length;i++) {
+      println(bars[i].indexNumber); 
+   }
+}
+
 
 void draw() {
   // redoDraw();
   //bar.drawBar();
-  //background(100);
+  background(100);
   redoDrawBars();
 
+}
+
+void mousePressed() {
+  
+  printBars();
 }
