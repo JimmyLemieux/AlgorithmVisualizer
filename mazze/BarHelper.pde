@@ -13,10 +13,12 @@ class BarHelper extends Thread {
       bars[k].setCurrent();
       swapBars(bars[i], bars[k]);
 
-      delay(100);
+      delay(10);
       bars[i].setCurrent();
       bars[k].setCurrent();
     }
+
+    sweep();
     m.sin.stop();
   }
 
@@ -31,7 +33,14 @@ class BarHelper extends Thread {
   }
 
   public void sweep() {
-    for (int i =0; i<bars.length; i++) {
+    for (int i =bars.length - 1; i>=0; i--) {
+      if (i % 2 == 0)
+        bars[i].strokeColor = bars[i].strokeColor - 100;
+      else
+        bars[i].strokeColor = bars[i].strokeColor - 50;
+
+      m.sin.freq(bars[i].getFreq() * 2);
+      delay(2);
     }
   }
 

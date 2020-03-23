@@ -2,10 +2,14 @@ class Bar {
     
   int x, y, w, h, freq;
   
+  
+  
+  int strokeColor = 255;
+  
   public int indexNumber;
 
   boolean isCurrent = false;
-  
+    
 
 
   public Bar(int x, int y, int w, int h, int indexNumber) {
@@ -39,7 +43,7 @@ class Bar {
 
   public void drawBar() {
     rectMode(CORNER);
-    stroke(255);
+    stroke(strokeColor);
 
     if (isCurrent) {
       fill(color(255, 204, 0));
