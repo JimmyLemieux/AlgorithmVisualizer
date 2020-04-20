@@ -9,7 +9,6 @@ Tile genesisBlock;
 GraphHelper gh;
 BarHelper bh;
 Bar bar;
-ArrayUtil au;
 Bar bars[];
 DFS d;
 BFS b;
@@ -18,7 +17,7 @@ OperatingSystemMXBean osBean;
 
 int c = 200;
 boolean start = false;
-int squareSize = 30;
+int squareSize = 1;
 int cols, rows;
 
 void setup() {
@@ -100,7 +99,7 @@ void getOSStats() {
       catch (Exception e) {
         value = e;
       } // try
-      textSize(20);
+      textSize(12);
       fill(0);
       text(method.getName() + " = " + value, 46, yCoor, 550, 4000);
       yCoor += 25;

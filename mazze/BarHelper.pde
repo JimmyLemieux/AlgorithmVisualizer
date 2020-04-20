@@ -19,7 +19,7 @@ class BarHelper extends Thread {
     for (int i =bars.length - 1; i>=0; i--) {
       bars[i].setCurrent();
       sin.freq(bars[bars.length - 1 - i].getFreq() * 2);
-      delay(5);
+      delay(1);
     }
     sin.stop();
   }
@@ -79,11 +79,11 @@ class BarHelper extends Thread {
     Bar[] R = new Bar[n2];
 
     for (int i =0; i<n1; i++) {
-      L[i] = bars[l+i];
+      L[i] = new Bar(bars[l+i]);
     }
 
     for (int j =0; j<n2; j++) {
-      R[j] = bars[m + 1 + j];
+      R[j] = new Bar(bars[m + 1 + j]);
     }
 
     int i = 0, j = 0;
@@ -92,16 +92,10 @@ class BarHelper extends Thread {
     while (i < n1 && j < n2) {
       int t = bars[k].getY();
       if (L[i].getIndex() < R[j].getIndex()) {
-
-        bars[k].changeYCoor(L[i].getY());
-        bars[k] = L[i];
-        L[i].changeYCoor(t);
-
+        swap(bars[k], L[i]);
         i++;
       } else {
-        bars[k].changeYCoor(R[j].getY());
-        bars[k] = R[j];
-        R[j].changeYCoor(t);
+        swap(bars[k], R[j]);
         j++;
       }
       k++;
@@ -109,20 +103,13 @@ class BarHelper extends Thread {
 
     while (i < n1) {
       int t = bars[k].getY();
-      bars[k].changeYCoor(L[i].getY());
-      bars[k] = L[i];
-      L[i].changeYCoor(t);
-
+      swap(bars[k], L[i]);
       i++;
       k++;
     }
 
     while (j < n2) {
-      int t = bars[k].getY();
-
-      bars[k].changeYCoor(R[j].getY());
-      bars[k] = R[j];
-      R[j].changeYCoor(t);
+      swap(bars[k], R[j]);
 
       j++;
       k++;
@@ -138,22 +125,46 @@ class BarHelper extends Thread {
     }
   }
 
+  public void quickSort() {
+  }
+
+  public void timSort() {
+  }
+
+  public void bogoSort() {
+  }
+
+  public void gravitySort() {
+  }
+
+  public void StalinSort() {
+  }
+
+  public void otherSwap(Bar a, Bar b) {
+    // b goes into a
+    a.changeXCoor(b.getX());
+    a.changeYCoor(b.getY());
+    a.changeFreq(b.getFreq());
+    a.changeIndex(b.getIndex());
+  }
+
   public void swap(Bar a, Bar b) {
     Bar as = a;
     Bar bs = b;
     Bar temp = new Bar(as);
 
 
-    as.changeXCoor(bs.getX());
+    as.setCurrent();
+    bs.setCurrent();
     sin.freq(as.getY() * 2);
     sin.freq(bs.getY() * 2);
+    delay(1);
     as.setCurrent();
     bs.setCurrent();
-    delay(10);
-    as.setCurrent();
-    bs.setCurrent();
-    bs.changeXCoor(temp.getX());
 
+
+    as.changeXCoor(bs.getX());
+    bs.changeXCoor(temp.getX());
     as.changeIndex(bs.getIndex());
     bs.changeIndex(temp.getIndex());
 
@@ -161,13 +172,7 @@ class BarHelper extends Thread {
   }
 
   public void run() {
-    mSort(bars, 0, bars.length - 1);
-    println("----------");
-
-    bars[5].setCurrent();
-    for (int i =0; i<bars.length; i++) {
-      println(bars[i].getIndex());
-      println(bars[i].getY());
-    }
+    mSort(bars, 0, bars.length - 1);  
+    sweep();
   }
 }

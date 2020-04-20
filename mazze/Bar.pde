@@ -21,14 +21,7 @@ class Bar {
     this.value = b.getIndex();
   }
 
-  public void replaceBar(Bar b) {
-    this.x = b.getX();
-    this.y = b.getY();
-    this.w = b.getWidth();
-    this.h = b.getHeight();
-    this.freq = b.getFreq();
-    this.value = b.getIndex();
-  }
+
 
   public void setCurrent() {
     this.isCurrent = !this.isCurrent;
@@ -79,6 +72,7 @@ class Bar {
     stroke(strokeColor);
 
     if (isCurrent) {
+      stroke(color(255, 47,0));
       fill(color(255, 204, 0));
     } else {
       fill(0);
