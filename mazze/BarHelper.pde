@@ -32,7 +32,6 @@ class BarHelper extends Thread {
   }
 
   public void selectionSort() {
-    println(bars[0].getIndex());
     for (int i =0; i<bars.length-1; i++) {
       int indexValue = bars[i].getIndex();
       int index = i;
@@ -44,7 +43,6 @@ class BarHelper extends Thread {
       }
       swap(bars[i], bars[index]);
     }
-    sweep();
   }
 
   public void bubbleSort() {
@@ -55,7 +53,6 @@ class BarHelper extends Thread {
         }
       }
     }
-    sweep();
   }
 
   public void insertionSort() {
@@ -68,7 +65,6 @@ class BarHelper extends Thread {
       }
       //swap(bars[j+1], bars[i]);
     }
-    sweep();
   }
 
   public void merge(Bar[] bars, int l, int m, int r) {
@@ -90,7 +86,6 @@ class BarHelper extends Thread {
     int k = l;
 
     while (i < n1 && j < n2) {
-      int t = bars[k].getY();
       if (L[i].getIndex() < R[j].getIndex()) {
         swap(bars[k], L[i]);
         i++;
@@ -102,7 +97,6 @@ class BarHelper extends Thread {
     }
 
     while (i < n1) {
-      int t = bars[k].getY();
       swap(bars[k], L[i]);
       i++;
       k++;
@@ -173,6 +167,9 @@ class BarHelper extends Thread {
 
   public void run() {
     mSort(bars, 0, bars.length - 1);  
+    println(bars.length);
+    //selectionSort();
+    //insertionSort();
     sweep();
   }
 }

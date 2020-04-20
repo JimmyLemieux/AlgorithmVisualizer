@@ -1,12 +1,13 @@
 class Bar {
 
-  int x, y, w, h, freq, value, strokeColor = 255;
+  float x, y, w, h;
+  int value, freq, strokeColor = 255;
   boolean isCurrent = false;
 
-  public Bar(int x, int y, int w, int h, int value) {
+  public Bar(float x, float y, float w, int h, int value) {
     this.x = x;
     this.y = y;
-    this.freq = y;
+    this.freq = (int)y;
     this.w = w;
     this.h = h;
     this.value = value;
@@ -27,11 +28,11 @@ class Bar {
     this.isCurrent = !this.isCurrent;
   }
 
-  public void changeXCoor(int x) {
+  public void changeXCoor(float x) {
     this.x = x;
   }
 
-  public void changeYCoor(int y) {
+  public void changeYCoor(float y) {
     this.y = y;
   }
 
@@ -47,19 +48,19 @@ class Bar {
     return this.value;
   }
 
-  public int getX() {
+  public float getX() {
     return this.x;
   }
 
-  public int getY() {
+  public float getY() {
     return this.y;
   }
 
-  public int getWidth() {
+  public float getWidth() {
     return this.w;
   }
 
-  public int getHeight() {
+  public float getHeight() {
     return this.h;
   }
 

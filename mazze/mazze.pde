@@ -17,8 +17,8 @@ OperatingSystemMXBean osBean;
 
 int c = 200;
 boolean start = false;
-int squareSize = 1;
-int cols, rows;
+float squareSize = 1;
+float cols, rows;
 
 void setup() {
   size(1000, 1000);
@@ -27,7 +27,7 @@ void setup() {
   frameRate(60);
   cols = width/squareSize;
   rows = height/squareSize;
-  grid = new Tile[rows][cols];
+  //grid = new Tile[(int)rows][cols];
 
 
   osBean = ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
@@ -36,12 +36,12 @@ void setup() {
   sin = new SinOsc(this);
 
 
-  bars = new Bar[cols];
+  bars = new Bar[(int)cols];
 
 
   for (int i =0; i<cols; i++) {
     // xPos, yPos, width, height, value
-    bars[i] = (new Bar(i * squareSize, i * squareSize, squareSize, height, (cols - i) - 1));
+    bars[i] = (new Bar(i * squareSize, i * squareSize, squareSize, height, (int)(cols - i) - 1));
   }
 
 
@@ -54,13 +54,13 @@ void setup() {
   bh.start();
 }
 
-void initGrid() {
-  for (int i = 0; i<rows; i++) {
-    for (int j = 0; j<cols; j++) {
-      grid[i][j] = new Tile(i * squareSize, j*squareSize, squareSize);
-    }
-  }
-}
+//void initGrid() {
+//  for (int i = 0; i<rows; i++) {
+//    for (int j = 0; j<cols; j++) {
+//      grid[i][j] = new Tile(i * squareSize, j*squareSize, (int)squareSize);
+//    }
+//  }
+//}
 
 void redoDraw() {
   for (int i =0; i<rows; i++) {
