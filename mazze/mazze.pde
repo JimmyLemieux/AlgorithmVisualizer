@@ -1,5 +1,9 @@
 import processing.sound.*;
 import java.util.*;
+import java.lang.management.ManagementFactory;
+import java.lang.management.OperatingSystemMXBean;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 Tile grid[][];
 Tile genesisBlock;
 GraphHelper gh;
@@ -10,14 +14,15 @@ Bar bars[];
 DFS d;
 BFS b;
 SinOsc sin;
+OperatingSystemMXBean osBean;
 
 int c = 200;
 boolean start = false;
-int squareSize = 10;
+int squareSize = 30;
 int cols, rows;
 
 void setup() {
-  size(600, 600);
+  size(1000, 1000);
   background(100);
   randomSeed(second());
   frameRate(60);
@@ -25,6 +30,8 @@ void setup() {
   rows = height/squareSize;
   grid = new Tile[rows][cols];
 
+
+  osBean = ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
 
 
   sin = new SinOsc(this);
@@ -34,17 +41,17 @@ void setup() {
 
 
   for (int i =0; i<cols; i++) {
-    // xPos, yPos, width, height, indexNumber
+    // xPos, yPos, width, height, value
     bars[i] = (new Bar(i * squareSize, i * squareSize, squareSize, height, (cols - i) - 1));
   }
 
 
 
-  bh = new BarHelper(bars);
+  bh = new BarHelper(bars, sin);
 
-
-  //  sin.play();
+  sin.amp(0.01);
   bh.shuffleBars();
+  sin.play();
   bh.start();
 }
 
@@ -79,22 +86,31 @@ void resetGrid() {
   }
 }
 
-void printBars() {
-  println(bars.length);
-  for (int i =0; i<bars.length; i++) {
-    println(bars[i].indexNumber);
-  }
+
+void getOSStats() {
+  Object value;
+  int yCoor = 57;
+  for (Method method : osBean.getClass().getDeclaredMethods()) {
+    method.setAccessible(true);
+    if (method.getName().startsWith("get")
+      && Modifier.isPublic(method.getModifiers())) {
+      try {
+        value = method.invoke(osBean);
+      } 
+      catch (Exception e) {
+        value = e;
+      } // try
+      textSize(20);
+      fill(0);
+      text(method.getName() + " = " + value, 46, yCoor, 550, 4000);
+      yCoor += 25;
+    } // if
+  } // for
 }
 
 
 void draw() {
-  // redoDraw();
-  //bar.drawBar();
   background(100);
   redoDrawBars();
-}
-
-void mousePressed() {
-
-  printBars();
+  getOSStats();
 }

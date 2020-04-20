@@ -1,33 +1,33 @@
 class Bar {
 
-  int x, y, w, h, freq;
-
-
-
-  int strokeColor = 255;
-
-  int indexNumber;
-
+  int x, y, w, h, freq, value, strokeColor = 255;
   boolean isCurrent = false;
 
-
-
-  public Bar(int x, int y, int w, int h, int indexNumber) {
+  public Bar(int x, int y, int w, int h, int value) {
     this.x = x;
     this.y = y;
     this.freq = y;
     this.w = w;
     this.h = h;
-    this.indexNumber = indexNumber;
+    this.value = value;
   }
-  
+
   public Bar(Bar b) {
-     this.x = b.getX();
-     this.y = b.getY();
-     this.w = b.getWidth();
-     this.h = b.getHeight();
-     this.freq = b.getFreq();
-     this.indexNumber = b.getIndex();
+    this.x = b.getX();
+    this.y = b.getY();
+    this.w = b.getWidth();
+    this.h = b.getHeight();
+    this.freq = b.getFreq();
+    this.value = b.getIndex();
+  }
+
+  public void replaceBar(Bar b) {
+    this.x = b.getX();
+    this.y = b.getY();
+    this.w = b.getWidth();
+    this.h = b.getHeight();
+    this.freq = b.getFreq();
+    this.value = b.getIndex();
   }
 
   public void setCurrent() {
@@ -38,30 +38,34 @@ class Bar {
     this.x = x;
   }
 
+  public void changeYCoor(int y) {
+    this.y = y;
+  }
+
   public void changeFreq(int x) {
     this.freq = x;
   }
-  
+
   public void changeIndex(int index) {
-     this.indexNumber = index; 
+    this.value = index;
   }
 
   public int getIndex() {
-    return this.indexNumber;
+    return this.value;
   }
 
   public int getX() {
     return this.x;
   }
-  
+
   public int getY() {
     return this.y;
   }
-  
+
   public int getWidth() {
     return this.w;
   }
-  
+
   public int getHeight() {
     return this.h;
   }
