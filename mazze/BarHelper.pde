@@ -4,14 +4,25 @@ class BarHelper extends Thread {
   SinOsc sin;
   Delay delay;
   int swaps = 0;
+  int algo = 1;
 
-  public BarHelper(Bar bars[], SinOsc sin) { 
+  public BarHelper(Bar bars[], SinOsc sin, int algo) { 
     this.sin = sin;
     this.bars = bars;
+    this.algo = algo;
   }
 
   public Bar [] barState() {
     return this.bars;
+  }
+  
+  public void changeAlgorithm(int x) {
+     if (x >= 1 && x <=5 ) {
+       this.algo = x;
+       return;
+     }
+     this.algo = 1;
+     return;
   }
 
   public void sweep() {
@@ -122,7 +133,7 @@ class BarHelper extends Thread {
 
     int i = low - 1;
 
-    for (int j = low; j<=high - 1;j++) {
+    for (int j = low; j<=high - 1; j++) {
       if (bars[j].getIndex() < pivot) {
         i++;
         swap(bars[j], bars[i]);
@@ -134,9 +145,9 @@ class BarHelper extends Thread {
 
   public void quickSort(Bar[] bars, int low, int high) {
     if (low < high) {
-       int part = partition(bars, 0, high);
-       quickSort(bars, low, part - 1);
-       quickSort(bars,part+1, high);
+      int part = partition(bars, 0, high);
+      quickSort(bars, low, part - 1);
+      quickSort(bars, part+1, high);
     }
   }
 
@@ -184,12 +195,20 @@ class BarHelper extends Thread {
   }
 
   public void run() {
-//    mSort(bars, 0, bars.length - 1);  
-    println(bars.length);
-    //selectionSort();
-    //insertionSort();
-    quickSort(bars, 0, bars.length - 1);
+    if (this.algo == 1) {
+      bubbleSort();
+    } else if (this.algo == 2) {
+      selectionSort();
+    } else if (this.algo == 3) {
+      insertionSort();
+    } else if (this.algo == 4) {
+      mSort(bars, 0, bars.length - 1);
+    } else if (this.algo == 5) {
+      quickSort(bars, 0, bars.length - 1);
+    }
     sweep();
+
+    // To close the thread
     this.interrupt();
   }
 }

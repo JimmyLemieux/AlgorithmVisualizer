@@ -12,7 +12,8 @@ class Bar {
     this.h = h;
     this.value = value;
   }
-
+  
+  // Deep copy of an already existing bar
   public Bar(Bar b) {
     this.x = b.getX();
     this.y = b.getY();

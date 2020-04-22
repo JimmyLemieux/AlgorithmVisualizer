@@ -1,7 +1,0 @@
-{
-	barsSize: 5.0,
-	algorithm: [
-		
-	]
-	
-]
