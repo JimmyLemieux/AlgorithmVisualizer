@@ -4,6 +4,7 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.OperatingSystemMXBean;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+
 Tile grid[][];
 Tile genesisBlock;
 GraphHelper gh;
@@ -15,7 +16,6 @@ BFS b;
 SinOsc sin;
 OperatingSystemMXBean osBean;
 
-int c = 200;
 boolean start = false;
 float squareSize = 1;
 float cols, rows;
@@ -28,7 +28,6 @@ void setup() {
   cols = width/squareSize;
   rows = height/squareSize;
   //grid = new Tile[(int)rows][cols];
-
 
   osBean = ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
 
@@ -51,7 +50,6 @@ void setup() {
   sin.amp(0.01);
   bh.shuffleBars();
   sin.play();
-  bh.start();
 }
 
 //void initGrid() {
@@ -110,6 +108,12 @@ void getOSStats() {
 
 void draw() {
   background(100);
+
+  // This should be made into a new file called start menu.. I probably won't do this tbh...
+  if (!bh.isAlive() && start == false) {
+    bh.start();
+    start = true;
+  }
   redoDrawBars();
   getOSStats();
 }

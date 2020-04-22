@@ -1,9 +1,8 @@
 import java.util.*;
 class BarHelper extends Thread {
-
-
   Bar bars[];
   SinOsc sin;
+  Delay delay;
   int swaps = 0;
 
   public BarHelper(Bar bars[], SinOsc sin) { 
@@ -104,7 +103,6 @@ class BarHelper extends Thread {
 
     while (j < n2) {
       swap(bars[k], R[j]);
-
       j++;
       k++;
     }
@@ -119,7 +117,27 @@ class BarHelper extends Thread {
     }
   }
 
-  public void quickSort() {
+  int partition(Bar[] bars, int low, int high) {
+    int pivot = bars[high].getIndex();
+
+    int i = low - 1;
+
+    for (int j = low; j<=high - 1;j++) {
+      if (bars[j].getIndex() < pivot) {
+        i++;
+        swap(bars[j], bars[i]);
+      }
+    }
+    swap(bars[i+1], bars[high]);
+    return pivot;
+  }
+
+  public void quickSort(Bar[] bars, int low, int high) {
+    if (low < high) {
+       int part = partition(bars, 0, high);
+       quickSort(bars, low, part - 1);
+       quickSort(bars,part+1, high);
+    }
   }
 
   public void timSort() {
@@ -166,10 +184,12 @@ class BarHelper extends Thread {
   }
 
   public void run() {
-    mSort(bars, 0, bars.length - 1);  
+//    mSort(bars, 0, bars.length - 1);  
     println(bars.length);
     //selectionSort();
     //insertionSort();
+    quickSort(bars, 0, bars.length - 1);
     sweep();
+    this.interrupt();
   }
 }
