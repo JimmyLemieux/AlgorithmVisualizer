@@ -12,6 +12,8 @@ You can begin with editing the fields in the config file!
 
 Have Fun!!
 
+Still trying to figure out how to export this into a standalone program. (So you don't need to download processing..)
+
 ## config
 
 ```processing
